@@ -10,3 +10,11 @@ public class Subject
       subjectName = name;
       subjectGrade = grade;
     }
+    public String getName() { return name; }
+
+    public final void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Subject name cannot be empty.");
+        }
+        this.name = name.trim();
+    }
