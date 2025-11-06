@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class StudentManagementSystem {
+public class StudentManagementSystem
+{
     private List<Student> students = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private static final String DATA_FILE = "students.dat";
@@ -27,10 +27,11 @@ public class StudentManagementSystem {
             System.out.println("5. Generate reports");
             System.out.println("6. Save data and exit");
             System.out.print("Enter your choice: ");
-
-            try {
+            try
+            {
                 int choice = Integer.parseInt(scanner.nextLine());
-                switch (choice) {
+                switch (choice)
+                {
                     case 1:
                         addStudent();
                         break;
@@ -54,8 +55,7 @@ public class StudentManagementSystem {
                         System.out.println("Invalid choice. Please try again.");
                 }
             }
-            catch (NumberFormatException e)
-            {
+            catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
             }
         }
@@ -67,13 +67,11 @@ public class StudentManagementSystem {
         try
         {
             int id = Integer.parseInt(scanner.nextLine());
-
             if (findStudentById(id) != null)
             {
                 System.out.println("Error: Student with this ID already exists.");
                 return;
             }
-
             System.out.print("Enter student name: ");
             String name = scanner.nextLine();
             students.add(new Student(id, name));
@@ -96,43 +94,41 @@ public class StudentManagementSystem {
                 students.remove(student);
                 System.out.println("Student removed successfully.");
             }
-            else
-            {
+            else {
                 System.out.println("Student not found.");
             }
-        } catch (NumberFormatException e)
-        {
+        }
+        catch (NumberFormatException e) {
             System.out.println("Invalid ID format.");
         }
     }
 
-    private void updateStudent()
-    {
+    private void updateStudent() {
         System.out.print("Enter student ID to update grades: ");
         try
         {
             int id = Integer.parseInt(scanner.nextLine());
             Student student = findStudentById(id);
-            if (student != null) {
+            if (student != null)
+            {
                 System.out.print("Enter subject name: ");
                 String subjectName = scanner.nextLine();
                 System.out.print("Enter grade (0-100): ");
                 double grade = Double.parseDouble(scanner.nextLine());
-
-
-                if (grade < 0 || grade > 100)
-                {
+                if (grade < 0 || grade > 100) {
                     System.out.println("Invalid grade. Must be between 0 and 100.");
                     return;
                 }
                 student.addSubject(new Subject(subjectName, grade));
                 System.out.println("Grade added successfully.");
             }
-            else {
+            else
+            {
                 System.out.println("Student not found.");
             }
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException e)
+        {
             System.out.println("Invalid input format for ID or grade.");
         }
     }
@@ -143,17 +139,26 @@ public class StudentManagementSystem {
         {
             System.out.println("No students registered yet.");
         }
-        else {
-            for (Student student : students) {
+        else
+        {
+            for (Student student : students)
+            {
                 System.out.println(student);
             }
         }
     }
 
-    private Student findStudentById(int id) {
-        return students.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
+    private Student findStudentById(int id)
+    {
+        for (Student s : students)
+        {
+            if (s.getId() == id)
+            {
+                return s;
+            }
+        }
+        return null;
     }
-
 
     @SuppressWarnings("unchecked")
     private void loadDataFromFile()
@@ -166,18 +171,21 @@ public class StudentManagementSystem {
         catch (FileNotFoundException e) {
             System.out.println("Data file not found. Starting with empty list.");
         }
-        catch (IOException | ClassNotFoundException e) {
+        catch (IOException | ClassNotFoundException e)
+        {
             System.out.println("Error loading data: " + e.getMessage());
         }
     }
 
     private void saveDataToFile()
     {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE)))
+        {
             oos.writeObject(students);
             System.out.println("Student data saved to file successfully. Exiting.");
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
             System.out.println("Error saving data: " + e.getMessage());
         }
     }
@@ -195,25 +203,26 @@ public class StudentManagementSystem {
             {
                 sortStudentsByGrade();
             }
-            else {
+            else
+            {
                 System.out.println("Invalid choice.");
             }
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException e)
+        {
             System.out.println("Invalid input.");
         }
     }
 
     private void sortStudentsByGrade()
     {
-        List<Student> sortedList = students.stream()
-                .sorted(Comparator.comparingDouble(Student::calculateAverageGrade).reversed())
-                .collect(Collectors.toList());
+        List<Student> sortedList = new ArrayList<>(students); \
+        sortedList.sort(Comparator.comparingDouble(Student::calculateAverageGrade).reversed());
 
         System.out.println("\n--- Students Sorted by Average Grade (Descending) ---");
-        for (Student student : sortedList) {
+        for (Student student : sortedList)
+        {
             System.out.println(student);
         }
     }
 }
-
