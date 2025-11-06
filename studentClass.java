@@ -1,32 +1,63 @@
-public class Student {
-    private final String id;      // immutable unique ID
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student implements Serializable
+{
+    private int id;
     private String name;
-    private final Map<String, Subject> subjects = new HashMap<>(); // key: lowercased subject name
+    private List<Subject> subjects;
 
-    public Student(String id, String name) 
+    public Student(int id, String name)
     {
-        if (id == null || id.isBlank()) 
-            throw new IllegalArgumentException("ID required.");
-        if (name == null || name.isBlank()) 
-            throw new IllegalArgumentException("Name required.");
-        this.id = id.trim();
-        this.name = name.trim();
+        this.id = id;
+        this.name = name;
+        this.subjects = new ArrayList<>();
     }
 
-    public String getId() 
-    { 
-        return id; 
-    }
 
-    public String getName() 
+    public int getId()
     {
-        return name; 
+        return id;
     }
 
-    public void setName(String name) 
+    public String getName()
     {
-        if (name == null || name.isBlank()) 
-            throw new IllegalArgumentException("Name required.");
-        this.name = name.trim();
+        return name;
     }
 
+    public List<Subject> getSubjects()
+    {
+        return subjects;
+    }
+
+    public void addSubject(Subject subject)
+    {
+        this.subjects.add(subject);
+    }
+
+    public double calculateAverageGrade()
+    {
+        if (subjects.isEmpty())
+        {
+            return 0.0;
+        }
+        double sum = 0;
+        for (Subject subject : subjects)
+        {
+            sum += subject.getGrade();
+        }
+        return sum / subjects.size();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Student{" +
+                "ID=" + id +
+                ", Name='" + name + '\'' +
+                ", Average Grade=" + String.format("%.2f", calculateAverageGrade()) +
+                ", Subjects=" + subjects +
+                '}';
+    }
+}
