@@ -32,23 +32,17 @@ public class StudentManagementSystem
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice)
                 {
-                    case 1:
-                        addStudent();
+                    case 1: addStudent();
                         break;
-                    case 2:
-                        removeStudent();
+                    case 2: removeStudent();
                         break;
-                    case 3:
-                        updateStudent();
+                    case 3: updateStudent();
                         break;
-                    case 4:
-                        viewAllStudents();
+                    case 4: viewAllStudents();
                         break;
-                    case 5:
-                        generateReports();
+                    case 5: generateReports();
                         break;
-                    case 6:
-                        saveDataToFile();
+                    case 6: saveDataToFile();
                         exit = true;
                         break;
                     default:
