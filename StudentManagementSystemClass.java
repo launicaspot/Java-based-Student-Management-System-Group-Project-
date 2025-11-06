@@ -88,16 +88,19 @@ public class StudentManagementSystem
                 students.remove(student);
                 System.out.println("Student removed successfully.");
             }
-            else {
+            else 
+            {
                 System.out.println("Student not found.");
             }
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException e) 
+            {
             System.out.println("Invalid ID format.");
         }
     }
 
-    private void updateStudent() {
+    private void updateStudent() 
+    {
         System.out.print("Enter student ID to update grades: ");
         try
         {
@@ -109,7 +112,8 @@ public class StudentManagementSystem
                 String subjectName = scanner.nextLine();
                 System.out.print("Enter grade (0-100): ");
                 double grade = Double.parseDouble(scanner.nextLine());
-                if (grade < 0 || grade > 100) {
+                if (grade < 0 || grade > 100)
+                {
                     System.out.println("Invalid grade. Must be between 0 and 100.");
                     return;
                 }
