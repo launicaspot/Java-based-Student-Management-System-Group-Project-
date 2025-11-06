@@ -1,25 +1,37 @@
-//Class stores data about a subject
-
 public class Subject
-  {
-    private String subjectName;      //Name of the subject
-    private Double subjectGrade;     //Holds grade
+{
+    private String name;
+    private double grade;
 
-    public Subject(String name, Double grade)
+    public Subject(String name, double grade)
     {
-      subjectName = name;
-      subjectGrade = grade;
-    }
-    public String getName() 
-    { 
-      return name; 
+        this.name = name;
+        this.grade = grade;
     }
 
-    public final void setName(String name) 
+    public String getName()
     {
-        if (name == null || name.isBlank()) 
-        {
-            throw new IllegalArgumentException("Subject name cannot be empty.");
-        }
-        this.name = name.trim();
+        return name;
     }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public double getGrade()
+    {
+        return grade;
+    }
+
+    public void setGrade(double grade)
+    {
+        this.grade = grade;
+    }
+
+    @Override
+    public String toString()
+    {
+        return name + ": " + grade;
+    }
+}
